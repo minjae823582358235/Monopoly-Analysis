@@ -28,6 +28,8 @@ class Property():
         self.baserent=baserent
         self.houserent=[h1,h2,h3,h4,hotel]
         self.colour=colour
+    def __str__(self):
+        return 'Property:',str(self.name)+',',str(self.colour)
 class Utility():
     def __init__(self,
                  name,
@@ -36,6 +38,8 @@ class Utility():
         self.name=name
         self.loc=loc
         self.value=value
+    def __str__(self):
+        return  'Utility:',str(self.name)
 class Station():
     def __init__(self,
                  name,
@@ -44,3 +48,5 @@ class Station():
         self.name=name
         self.loc=loc
         self.value=value
+    def __str__(self):
+        return  'Station:',str(self.name)
