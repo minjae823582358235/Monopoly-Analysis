@@ -6,7 +6,9 @@ cellsDF=pd.read_excel('Monopoly Datasheet.xlsx')
 propertyDF=cellsDF[cellsDF['Type']=='Property']
 stationDF=cellsDF[cellsDF['Type']=='Station']
 utilityDF=cellsDF[cellsDF['Type']=='Utility']
-stationDF.head()
+# propertyDF.head()
+# stationDF.head()
+utilityDF.head()
 # %%
 class Property():
     def __init__(self, 
@@ -28,10 +30,17 @@ class Property():
         self.baserent=baserent
         self.houserent=[h1,h2,h3,h4,hotel]
         self.colour=colour
-        self.mortgageValue=value*0.5
-        self.mortgageRepay=self.mortgageValue*1.1
-    def __str__(self):
-        return 'Property:',str(self.name)+',',str(self.colour)
+    def propertyROE(self,housenum:int,colourOwned=False):
+        if housenum < 0 or housenum > 5:
+            raise ValueError('Housenum should be between 0 and 6 excl')
+        if housenum == 0:
+            if colourOwned==True:
+                return self.value/(self.baserent*2)
+            else:
+                return self.value/(self.baserent)
+        else:
+            upfront=self.housecost*housenum+self.value
+            return upfront/self.houserent[housenum-1]
 class Utility():
     def __init__(self,
                  name:str,
@@ -40,10 +49,7 @@ class Utility():
         self.name=name
         self.loc=loc
         self.value=value
-        self.mortgageValue=value*0.5
-        self.mortgageRepay=self.mortgageValue*1.1
-    def __str__(self):
-        return  'Utility:',str(self.name)
+        self.multiplier=[4,10]
 class Station():
     def __init__(self,
                  name:str,
@@ -51,10 +57,6 @@ class Station():
                  value:int):
         self.name=name
         self.loc=loc
-        self.value=value
-        self.mortgageValue=value*0.5
-        self.mortgageRepay=self.mortgageValue*1.1
-    def __str__(self):
-        return  'Station:',str(self.name)
-    
+        self.value=value 
+        self.rent=[50,100,200]  
 # %%
