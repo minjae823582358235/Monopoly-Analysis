@@ -50,6 +50,14 @@ class Utility():
         self.loc=loc
         self.value=value
         self.multiplier=[4,10]
+    def utilityROE(self,utilityNum:int):
+        if utilityNum <1 or utilityNum>2:
+            raise ValueError('utilitynum should be 1 or 2')
+        multiplier=self.multiplier[0]
+        if utilityNum ==2:  
+            multiplier=self.multiplier[1]
+        return self.value/(multiplier*6) #expected return, not probability
+
 class Station():
     def __init__(self,
                  name:str,
@@ -58,5 +66,12 @@ class Station():
         self.name=name
         self.loc=loc
         self.value=value 
-        self.rent=[50,100,200]  
+        self.rent=[50,100,200]   
+    def stationROE(self,stationNum:int):
+        if stationNum<1 or stationNum>3:
+            raise ValueError('stationNum should be 1,2 or 3')
+        rent=self.rent[0]
+        if stationNum!=1:
+            rent=self.rent[stationNum-1]
+        return self.value/rent
 # %%
