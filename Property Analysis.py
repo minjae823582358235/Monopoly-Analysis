@@ -2,7 +2,7 @@
 import pandas as pd
 import numpy as np
 # %%
-class Property():
+class Property:
     def __init__(self, 
                  name:str,
                  loc:int, 
@@ -29,7 +29,7 @@ class Property():
         else:
             upfront=self.housecost*housenum+self.value
             return upfront/self.houserent[housenum-1]
-class Utility():
+class Utility:
     def __init__(self,
                  name:str,
                  loc:int,
@@ -46,7 +46,7 @@ class Utility():
             multiplier=self.multiplier[1]
         return self.value/(multiplier*6) #expected return, not probability
 
-class Station():
+class Station:
     def __init__(self,
                  name:str,
                  loc:int,
@@ -62,30 +62,54 @@ class Station():
         if stationNum!=1:
             rent=self.rent[stationNum-1]
         return self.value/rent
-class Go():
+class Go:
     def __init__(self):
         self.loc=0
         self.value=200
-class Jail():
+class Jail:
     def __init__(self):
         self.loc=10
-class FreeParking():
+class FreeParking:
     def __init__(self):
         self.loc=20
-class GoToJail():
+class GoToJail:
     def __init__(self):
         self.loc=30
-class Tax():
+class Tax:
     def __init__(self,name:str,loc:int,value:int):
         self.name=name
         self.loc=loc
         self.value=value
-class CommunityChest():
+class CommunityChest:
     def __init__(self,loc:int):
         self.loc=loc
-class Chance():
+class Chance:
     def __init__(self,loc:int):
         self.loc=loc
+def define(function,type):
+    if type not in ['super','income','CC1','CC2','Chance1','Chance2','Chance3']:
+        raise ValueError('type has to be either super or income')
+    if not isinstance(function,Tax) and not isinstance(function,CommunityChest) and not isinstance(function,Chance):
+        raise ValueError('variable is not the correct class')
+    if isinstance(function,Tax):
+        if type == 'super':
+            function.loc=39
+            function.value=100
+        if type == 'income':
+            function.loc=4
+            function.value=200
+    if isinstance(function,CommunityChest):
+        if type == 'CC1':
+            function.loc=2
+        if type == 'CC2':
+            function.loc=33
+    if isinstance(function,Chance):
+        if type == 'Chance1':
+            function.loc=7
+        if type == 'Chance2':
+            function.loc=22
+        if type == 'Chance3':
+            function.loc=37
 # %%
 # Create Property objects
 #%%
