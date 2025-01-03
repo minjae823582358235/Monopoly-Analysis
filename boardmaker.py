@@ -86,14 +86,14 @@ class CommunityChest:
 class Chance:
     def __init__(self,loc:int):
         self.loc=loc
-def define(function,type):
-    if type not in ['super','income','CC1','CC2','Chance1','Chance2','Chance3']:
+def defineLocation(function,type):
+    if type not in ['super','income','CC1','CC2','CC3','Chance1','Chance2','Chance3']:
         raise ValueError('type has to be either super or income')
     if not isinstance(function,Tax) and not isinstance(function,CommunityChest) and not isinstance(function,Chance):
         raise ValueError('variable is not the correct class')
     if isinstance(function,Tax):
         if type == 'super':
-            function.loc=39
+            function.loc=38
             function.value=100
         if type == 'income':
             function.loc=4
@@ -103,13 +103,15 @@ def define(function,type):
             function.loc=2
         if type == 'CC2':
             function.loc=33
+        if type == 'CC3':
+            function.loc=17
     if isinstance(function,Chance):
         if type == 'Chance1':
             function.loc=7
         if type == 'Chance2':
             function.loc=22
         if type == 'Chance3':
-            function.loc=37
+            function.loc=36
 # %%
 # Create Property objects
 #%%
@@ -134,10 +136,31 @@ stations = [Station(row['Name'], row['Location'], row['Property Value']) for ind
 # Create Utility objects
 utilities = [Utility(row['Name'], row['Location'], row['Property Value']) for index, row in utilityDF.iterrows()]
 
+chance1=Chance(loc=0)
+defineLocation(chance1,'Chance1')
+chance2=Chance(loc=0)
+defineLocation(chance2,'Chance2')
+chance3=Chance(loc=0)
+defineLocation(chance3,'Chance3')
+cc1=CommunityChest(loc=0)
+defineLocation(cc1,'CC1')
+cc2=CommunityChest(loc=0)
+defineLocation(cc2,'CC2')
+cc3=CommunityChest(loc=0)
+defineLocation(cc3,'CC3')
+superTax=Tax(name='Super Tax',loc=0,value=100)
+defineLocation(superTax,'super')
+incomeTax=Tax(name='Income Tax',loc=0,value=200)
+defineLocation(incomeTax,'income')
+
+go=Go()
+go2Jail=GoToJail()
+Jail=Jail()
+freeParking=FreeParking()
 # Sort the list by location
-board = properties + stations + utilities
+board = properties + stations + utilities +[chance1,chance2,chance3,cc1,cc2,superTax,incomeTax,go,go2Jail,Jail,freeParking]
 board = sorted(board, key=lambda x: x.loc)
-for cell in board:
-    print(type(cell), cell.name, cell.loc)
-print(board)
+# for cell in board:
+#     print(type(cell), cell.loc)
+# print(board)
 # %%
