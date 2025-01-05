@@ -10,5 +10,17 @@ TBD
 TBD
 #### Finding a bulletproof method of no counter
 TBD
+## Finding the most valuable property
+### Absolute Value Equation
+There are various factors that a property* can have, such as the price per house, base property cost, full colour probability, specialist perks (utilities, station), CC(Community Chest), Chance events. Using every factor we have, can we find a list from most valuable and least valuable.
+
+**in this document, unless specified, property includes not just properties, but utilities and stations too.*
+#### But what does it mean to be 'Valuable'?
+#### Limitations and Key Assumptions
+##### When Player gets a Chance card or CC, the deck is reshuffled
+
 ## Useful Links
+###### UK Monopoly Board Layout
 https://en.wikipedia.org/wiki/Template:London_Monopoly_board_layout
+###### Very good channel for introducing Markov Chains
+https://www.youtube.com/watch?v=i3AkTO9HLXo&t=1s&ab_channel=NormalizedNerd

@@ -1,8 +1,8 @@
 
 #%%
-from boardmaker import board
+from boardmaker import board,Property,Station,Utility,Chance,CommunityChest,GoToJail,Go,Jail,FreeParking,Tax
 import numpy as np
-print(board[0])
+print(board[30])
 # %%
 print(type(board[0]))
 def diceroll(number:int):
@@ -21,4 +21,11 @@ class MarkovNode:
         self.outward=outward
 def MarkovMonopolyMatrix(markovNodeArray):
     output=np.zeros(len(markovNodeArray),len(markovNodeArray))
-    
+    for i in range(len(markovNodeArray)):
+        if isinstance(markovNodeArray[i].innerds,GoToJail):
+            continue
+        if isinstance(markovNodeArray[i].innerds,Chance):
+            continue
+        if isinstance(markovNodeArray[i].innerds,CommunityChest):
+            continue
+        
