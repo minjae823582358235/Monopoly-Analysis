@@ -22,7 +22,7 @@ class MarkovNode:
             self.outward=outward
         else:
             raise ValueError('tag should be an integer')
-def MarkovMonopolyMatrix(markovNodeArray):
+def MonopolyMarkovMatrix(markovNodeArray):
     output=np.zeros(len(markovNodeArray),len(markovNodeArray))
     for i in range(len(markovNodeArray)):
         outwardDict=markovNodeArray[i].outward
@@ -34,11 +34,20 @@ def MarkovMonopolyMatrix(markovNodeArray):
             insert[index]=outwardDict[index+outwardkeys[0]]
         output[i,outwardkeys[0]:outwardkeys[-1]]=insert
     return output
-
-        # if isinstance(markovNodeArray[i].innerds,GoToJail):
-        #     markovNodeArray[i][9]=1
-        #     continue
-        # if isinstance(markovNodeArray[i].innerds,Chance):
-        #     continue
-        # if isinstance(markovNodeArray[i].innerds,CommunityChest):
-        #     continue
+def MonopolyMarkovNodeArray(board):
+    monopolyMarkovNodeArray=[]
+    for thing in board:
+        kwargs={
+            'innerds':thing,
+            'tag':thing.loc
+        }
+        if isinstance(thing,GoToJail):
+            kwargs['outward']={10:1}
+            monopolyMarkovNodeArray.append(MarkovNode(**kwargs))
+            continue
+        if isinstance(thing,Chance):
+            continue
+        if isinstance(thing,CommunityChest):
+            continue
+        kwargdict={}
+        
