@@ -16,16 +16,29 @@ class MarkovNode:
                  innerds=None,
                  tag=None,
                  outward=None):
-        self.innerds=innerds
-        self.tag=tag
-        self.outward=outward
+        if isinstance(tag,int):
+            self.innerds=innerds
+            self.tag=tag
+            self.outward=outward
+        else:
+            raise ValueError('tag should be an integer')
 def MarkovMonopolyMatrix(markovNodeArray):
     output=np.zeros(len(markovNodeArray),len(markovNodeArray))
     for i in range(len(markovNodeArray)):
-        if isinstance(markovNodeArray[i].innerds,GoToJail):
-            continue
-        if isinstance(markovNodeArray[i].innerds,Chance):
-            continue
-        if isinstance(markovNodeArray[i].innerds,CommunityChest):
-            continue
-        
+        outwardDict=markovNodeArray[i].outward
+        outwardkeys=list(outwardDict.keys())
+        outwardkeys.sort()
+        insertIndex=np.array(outwardkeys)-np.ones(len(outwardkeys))*outwardkeys[0] #i cooked
+        insert=np.zeros(insertIndex[-1]+1) #array that is going to be inserted in output
+        for index in insertIndex:
+            insert[index]=outwardDict[index+outwardkeys[0]]
+        output[i,outwardkeys[0]:outwardkeys[-1]]=insert
+    return output
+
+        # if isinstance(markovNodeArray[i].innerds,GoToJail):
+        #     markovNodeArray[i][9]=1
+        #     continue
+        # if isinstance(markovNodeArray[i].innerds,Chance):
+        #     continue
+        # if isinstance(markovNodeArray[i].innerds,CommunityChest):
+        #     continue
