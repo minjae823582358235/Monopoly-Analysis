@@ -66,9 +66,12 @@ class Go:
     def __init__(self):
         self.loc=0
         self.value=200
-class Jail:
+class JailVisiting:
     def __init__(self):
         self.loc=10
+class inJail:
+    def __init__(self):
+        self.loc=10.5
 class FreeParking:
     def __init__(self):
         self.loc=20
@@ -155,10 +158,11 @@ defineLocation(incomeTax,'income')
 
 go=Go()
 go2Jail=GoToJail()
-Jail=Jail()
+VisitngJail=JailVisiting()
+InJail=inJail()
 freeParking=FreeParking()
 # Sort the list by location
-board = properties + stations + utilities +[chance1,chance2,chance3,cc1,cc2,superTax,incomeTax,go,go2Jail,Jail,freeParking]
+board = properties + stations + utilities +[chance1,chance2,chance3,cc1,cc2,superTax,incomeTax,go,go2Jail,VisitngJail,InJail,freeParking]
 board = sorted(board, key=lambda x: x.loc)
 # for cell in board:
 #     print(type(cell), cell.loc)
