@@ -14,14 +14,30 @@ def diceroll(number:int):
 class MarkovNode:
     def __init__(self,
                  innerds:Iterable,
-                 outward:Iterable,
+                 outward:dict, #has to be in the shape of {tag:probability}
                  tag=None):
         self.innerds=innerds
         self.tag=tag
         self.outward=outward
 def MarkovMonopolyMatrix(markovNodeArray):
     output=np.zeros(len(markovNodeArray),len(markovNodeArray))
+    counter=0
+    for node in markovNodeArray:
+        arrowdict=node.outward
+        arrowlocsTagDict=arrowdict.keys() 
+        inputsdict={}
+        for TagDict in arrowlocsTagDict:
+            xindex=next(i for i,v in enumerate(markovNodeArray) if v.tag==TagDict)
+            inputsdict[xindex]=arrowdict[TagDict]
+        maxindex=np.max(inputsdict.keys())
+        minindex=np.min(inputsdict.keys())
+        inputlist=np.zeros(maxindex-minindex+1)
+        for index in inputsdict.keys():
+            inputlist[index]=inputsdict[index]
+        output[counter][minindex:maxindex+1]=inputlist
+        counter+=1
     print(output.shape)
+
 #probabilities to consider:
 # chance
 # community chest
