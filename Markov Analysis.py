@@ -61,8 +61,17 @@ def Board2MarkovArray(boardArray):
                 else:
                     probabilitydict[move+thing.loc]=diceroll(move)
             output.append(MarkovNode(innerds=thing,outward=probabilitydict,tag=thing.loc))
-        elif thing.__class__.__name__=='Chance':  
+        elif thing.__class__.__name__=='Chance': 
+            probabilitydict[0]=1/16
+            probabilitydict[11]=1/16
+            #need to add advance to nearest utility
+            #need to add advance to nearest station
+            #go back 3 spaces
+            #kings cross station
         elif thing.__class__.__name__=='CommunityChest':
+            probabilitydict[0]=1/16
+            probabilitydict[10.5]=1/16
+            probabilitydict[thing.loc]=14/16
         elif thing.__class__.__name__=='GoToJail':
             probabilitydict[10.5]=1
         elif thing.__class__.__name__=='InJail':
